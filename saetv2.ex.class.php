@@ -3245,7 +3245,22 @@ class SaeTClientV2
 		return $this->oauth->post( 'suggestions/users/not_interested', $params);
 	}
 
+	/**
+     * 查询用户access_token的授权相关信息，包括授权时间，过期时间和scope权限
+     *
+     * 对应API：{@link http://open.weibo.com/wiki/Oauth2/get_token_info}
+     *
+     * @param string $access_token 用户授权时生成的access_token
+     * @return array
+     */
+    function get_token_info( $access_token )
+    {
 
+        $params = array();
+        $params['access_token'] = $access_token;
+
+        return $this->oauth->post( 'https://api.weibo.com/oauth2/get_token_info', $params  );
+    }
 
 	// =========================================
 
