@@ -1111,6 +1111,28 @@ class SaeTClientV2
 		return $this->oauth->post( 'statuses/upload', $params, true );
 	}
 
+	/**
+	 * 第三方分享一条链接到微博
+	 *
+	 * 发表图片微博消息。目前上传图片大小限制为<5M。 
+	 * <br />对应API：{@link http://open.weibo.com/wiki/2/statuses/share statuses/share}
+	 * 
+	 * @access public
+	 * @param string $status 要更新的微博信息。信息内容不超过140个汉字, 为空返回400错误。
+	 * @param string $pic_path 要发布的图片路径, 支持url。[只支持png/jpg/gif三种格式, 增加格式请修改get_image_mime方法]
+	 * @return array
+	 */
+	function share( $status, $pic_path = NULL )
+    {
+        $params = array();
+        $params['status'] = $status;
+        if ($pic_path) {
+            $params['pic'] = '@'.$pic_path;
+        }
+        $multi = $pic_path ? true : false;
+
+        return $this->oauth->post( 'statuses/share', $params, $multi );
+    }
 
 	/**
 	 * 指定一个图片URL地址抓取后上传并同时发布一条新微博
